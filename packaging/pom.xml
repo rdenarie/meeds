@@ -23,9 +23,9 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>plf-public-distributions</artifactId>
     <groupId>io.meeds.distribution</groupId>
-    <version>1.0.x-SNAPSHOT</version>
+    <artifactId>plf-public-distributions</artifactId>
+    <version>1.0.x-meeds-SNAPSHOT</version>
   </parent>
 
   <name>eXo Meeds:: Meeds Public Distribution - Packaging</name>
