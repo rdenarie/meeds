@@ -128,6 +128,12 @@ if [ "${EXO_CLUSTER}" = "true" ]; then
           EXO_CLUSTER_HOSTS_TCP_1="${EXO_CLUSTER_HOSTS_TCP_1},${exo_cluster_address}[${exo_cluster_tcp1_port}]"
         fi
 
+        if [ -z $EXO_CLUSTER_OORT_CLOUD ]; then
+          EXO_CLUSTER_OORT_CLOUD="${exo_cluster_http_protocol}://${exo_cluster_address}:${exo_cluster_http_port}/cometd/cometd"
+        else
+          EXO_CLUSTER_OORT_CLOUD="${EXO_CLUSTER_OORT_CLOUD},${exo_cluster_http_protocol}://${exo_cluster_address}:${exo_cluster_http_port}/cometd/cometd"
+        fi
+
         if [ -z $EXO_CLUSTER_HOSTS_TCP_2 ]; then
           EXO_CLUSTER_HOSTS_TCP_2="${exo_cluster_address}[${exo_cluster_tcp2_port}]"
         else
@@ -138,6 +144,7 @@ if [ "${EXO_CLUSTER}" = "true" ]; then
 
     CATALINA_OPTS="${CATALINA_OPTS} -Dexo.jcr.cluster.jgroups.tcpping.initial_hosts=${EXO_CLUSTER_HOSTS_TCP_1}"
     CATALINA_OPTS="${CATALINA_OPTS} -Dexo.service.cluster.jgroups.tcpping.initial_hosts=${EXO_CLUSTER_HOSTS_TCP_2}"
+    CATALINA_OPTS="${CATALINA_OPTS} -Dexo.cometd.oort.cloud=${EXO_CLUSTER_OORT_CLOUD}"
   fi
 else
   CATALINA_OPTS="${CATALINA_OPTS} -Dexo.cluster.node.name="
