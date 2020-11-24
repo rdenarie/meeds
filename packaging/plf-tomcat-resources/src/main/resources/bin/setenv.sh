@@ -128,10 +128,16 @@ if [ "${EXO_CLUSTER}" = "true" ]; then
           EXO_CLUSTER_HOSTS_TCP_1="${EXO_CLUSTER_HOSTS_TCP_1},${exo_cluster_address}[${exo_cluster_tcp1_port}]"
         fi
 
+        if [ "${exo_cluster_name}"  !=  "${EXO_CLUSTER_NODE_NAME}" ]; then
+          if [ -z $EXO_CLUSTER_OORT_CLOUD ]; then
+            EXO_CLUSTER_OORT_CLOUD="${exo_cluster_http_protocol}://${exo_cluster_address}:${exo_cluster_http_port}/cometd/cometd"
+          else
+            EXO_CLUSTER_OORT_CLOUD="${EXO_CLUSTER_OORT_CLOUD},${exo_cluster_http_protocol}://${exo_cluster_address}:${exo_cluster_http_port}/cometd/cometd"
+          fi
+        fi
+
         if [ -z $EXO_CLUSTER_OORT_CLOUD ]; then
-          EXO_CLUSTER_OORT_CLOUD="${exo_cluster_http_protocol}://${exo_cluster_address}:${exo_cluster_http_port}/cometd/cometd"
-        else
-          EXO_CLUSTER_OORT_CLOUD="${EXO_CLUSTER_OORT_CLOUD},${exo_cluster_http_protocol}://${exo_cluster_address}:${exo_cluster_http_port}/cometd/cometd"
+          EXO_CLUSTER_OORT_CLOUD=""
         fi
 
         if [ -z $EXO_CLUSTER_HOSTS_TCP_2 ]; then
